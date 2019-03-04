@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<f:loadBundle basename="messages" var="msg"/>
+
+<h:head>
+    <title>
+    	<h:outputText value="#{msg['title']}" />
+    </title>
+    <meta
+    	http-equiv="Content-Type"
+    	content="text/html; charset=UTF-8" />
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body>
+	<h:messages globalOnly="true"/>
+    <ui:insert name="header">
+    	<ui:include src="header.xhtml"/>
+    </ui:insert>
+  <ui:insert name="content">
+
+  </ui:insert>
+
+  <ui:insert name="footer">
+    	<ui:include src="footer.xhtml"/>
+  </ui:insert>
+
+</h:body>
+
+</html>

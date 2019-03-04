@@ -1,0 +1,33 @@
+<ui:composition template="/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<ui:define name="content">
+	<h:form
+		id="signinForm" prependId="false">
+		<h:message for="signinForm" showSummary="true"/>
+		<h:panelGrid columns="3">
+			<f:facet name="header">
+				<h:outputText value="#{msg['signin']}"/>
+			</f:facet>
+			<h:outputLabel value="#{msg['email']}:"/>
+			<h:inputText
+				id="email" 
+				value="#{signinController.email}"/>
+			<h:message for="email"/>	
+			<h:outputLabel value="#{msg['password']}:"/>
+			<h:inputSecret
+				id="password" 
+				value="#{signinController.password}"/>
+			<h:message for="password"/>	
+			<h:commandButton
+				id="signin" 
+				action="#{signinController.find}" value="#{msg['signin']}"/>
+			<h:commandButton action="index" value="#{msg['cancel']}"/>
+			<h:message for="signin"/>
+		</h:panelGrid>
+	</h:form>
+</ui:define>
+</ui:composition>
+

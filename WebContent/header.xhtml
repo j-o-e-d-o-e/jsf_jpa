@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+	<header>
+	<hgroup>
+		<h1 class="title">
+			<h:outputText 
+				value="#{msg['title']}" />
+		</h1>	
+	</hgroup>
+	<nav>
+		<h:link
+			outcome="index"
+			value="#{msg['home']}"/>
+		<h:link
+			outcome="register"
+			value="#{msg['register']}"/>
+		<h:link
+			outcome="signin"
+			value="#{msg['signin']}"/>
+	</nav>
+	</header>
+</html>

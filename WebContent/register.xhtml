@@ -1,0 +1,33 @@
+<ui:composition template="/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<ui:define name="content">
+	<h:form
+		id="registerForm" prependId="false">
+		<h:message for="registerForm" showSummary="true"/>
+		<h:panelGrid columns="3">
+			<f:facet name="header">
+				<h:outputText value="#{msg['register']}"/>
+			</f:facet>
+			<h:outputLabel value="#{msg['email']}:"/>
+			<h:inputText
+				id="email" 
+				value="#{registerController.customer.email}"/>
+			<h:message for="email"/>	
+			<h:outputLabel value="#{msg['password']}:"/>
+			<h:inputSecret
+				id="password" 
+				value="#{registerController.customer.password}"/>
+			<h:message for="password"/>	
+			<h:commandButton
+				id="register" 
+				action="#{registerController.persist}" value="#{msg['register']}"/>
+			<h:commandButton action="index" value="#{msg['cancel']}"/>
+			<h:message for="register"/>
+		</h:panelGrid>
+	</h:form>
+</ui:define>
+</ui:composition>
+
