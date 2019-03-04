@@ -39,7 +39,7 @@ public class RegisterController implements Serializable {
             FacesMessage m = new FacesMessage("Successfully registered " + customer.getEmail());
             FacesContext.getCurrentInstance().addMessage("registerForm", m);
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Speicherungfehler: " + e.getMessage());
+            LOGGER.log(Level.WARNING, "Registration failed: " + e.getMessage());
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getCause().getMessage());
             FacesContext.getCurrentInstance().addMessage("registerForm", m);
         }
