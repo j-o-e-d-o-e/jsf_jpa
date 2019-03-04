@@ -1,6 +1,12 @@
 package net.joedoe.controllers;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -10,6 +16,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -25,6 +32,7 @@ import net.joedoe.model.Item;
 public class SellController implements Serializable {
     private static final long serialVersionUID = 1L;
     private final static Logger LOGGER = Logger.getLogger(SellController.class.getCanonicalName());
+    public final static int MAX_IMAGE_LENGTH = 400;
 
     @PersistenceContext
     private EntityManager em;
@@ -44,7 +52,7 @@ public class SellController implements Serializable {
             for (int length = 0; (length = input.read(buffer)) > 0;) {
                 output.write(buffer, 0, length);
             }
-            item.setFoto(output.toByteArray());
+            item.setFoto(scale(output.toByteArray()));
             Customer customer = controller.getCustomer();
             customer = em.find(Customer.class, customer.getId());
             item.setSeller(customer);
@@ -59,6 +67,29 @@ public class SellController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("sellForm", m);
         }
         return "sell";
+    }
+
+    public byte[] scale(byte[] foto) throws IOException {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(foto);
+        BufferedImage originalBufferedImage = ImageIO.read(byteArrayInputStream);
+
+        double originalWidth = (double) originalBufferedImage.getWidth();
+        double originalHeight = (double) originalBufferedImage.getHeight();
+        double relevantLength = originalWidth > originalHeight ? originalWidth : originalHeight;
+
+        double transformationScale = MAX_IMAGE_LENGTH / relevantLength;
+        int width = (int) Math.round(transformationScale * originalWidth);
+        int height = (int) Math.round(transformationScale * originalHeight);
+
+        BufferedImage resizedBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = resizedBufferedImage.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        AffineTransform affineTransform = AffineTransform.getScaleInstance(transformationScale, transformationScale);
+        g2d.drawRenderedImage(originalBufferedImage, affineTransform);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(resizedBufferedImage, "PNG", baos);
+        return baos.toByteArray();
     }
 
     public Item getItem() {

@@ -37,6 +37,9 @@
 				<h:commandButton action="index" value="#{msg['cancel']}"/>
 			</h:panelGrid>
 			</h:column>
+			<h:column>
+				<h:graphicImage rendered="#{not empty sellController.item.id}" url="image?id=#{sellController.item.id}"/>
+			</h:column>
 		</h:panelGrid>
 	</h:form>
 </ui:define>

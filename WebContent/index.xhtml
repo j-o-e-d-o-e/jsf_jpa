@@ -4,25 +4,22 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
 <ui:define name="content">
-	<h:outputText value="#{msg['welcome']}" />
-	<article>
-		<h2>
-			Kirschlorbeer
-		</h2>
-		<section>
-			<p>
-				ID: 001
-			</p>
-			<p>
-				Prunus I. (Kirschlorbeer)
-			</p>
-			<p>
-				Preis: 19.00 Euro
-			</p>
-		</section>
-		<aside>
-			<h:graphicImage value="#{resource['img:blatt.jpg']}"/>
-		</aside>
-	</article>
+<h:dataTable value="#{searchController.items}" var="item">
+	<h:column>
+		<h:panelGrid columns="2">
+			<h:outputText value="#{msg['item.title']}:"/>
+			<h:outputText value="#{item.title}"/>
+			<h:outputText value="#{msg['item.id']}:"/>
+			<h:outputText value="#{item.id}"/>
+			<h:outputText value="#{msg['item.description']}:"/>
+			<h:outputText value="#{item.description}"/>
+			<h:outputText value="#{msg['item.price']}:"/>
+			<h:outputText value="#{item.price}"/>
+		</h:panelGrid>
+	</h:column>
+	<h:column>
+		<h:graphicImage url="image?id=#{item.id}"/>
+	</h:column>
+</h:dataTable>
 </ui:define>
 </ui:composition>
