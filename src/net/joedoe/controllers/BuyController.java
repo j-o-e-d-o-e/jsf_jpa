@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -26,7 +25,6 @@ public class BuyController implements Serializable {
 
     @PersistenceContext
     private EntityManager em;
-
     @Resource
     private UserTransaction ut;
 
@@ -46,9 +44,9 @@ public class BuyController implements Serializable {
 
     private Customer getCustomer() {
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ELContext elc = ctx.getELContext();
         ELResolver elr = ctx.getApplication().getELResolver();
-        SigninController signinController = (SigninController) elr.getValue(elc, null, "signinController");
+        SigninController signinController = (SigninController) elr.getValue(ctx.getELContext(), null,
+                "signinController");
         return signinController.getCustomer();
     }
 }

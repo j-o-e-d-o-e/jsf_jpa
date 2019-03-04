@@ -23,8 +23,6 @@ public class SearchController implements Serializable {
     @PersistenceContext
     private EntityManager em;
 
-    private List<Item> items;
-
     public List<Item> findAll() {
         try {
             TypedQuery<Item> query = em.createNamedQuery("Item.findAll", Item.class);
@@ -36,11 +34,6 @@ public class SearchController implements Serializable {
     }
 
     public List<Item> getItems() {
-        items = findAll();
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
+        return findAll();
     }
 }

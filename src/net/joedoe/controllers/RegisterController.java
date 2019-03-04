@@ -30,14 +30,6 @@ public class RegisterController implements Serializable {
     @Inject
     private Customer customer;
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public String persist() {
         try {
             ut.begin();
@@ -54,4 +46,11 @@ public class RegisterController implements Serializable {
         return "register";
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

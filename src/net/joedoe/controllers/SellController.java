@@ -38,10 +38,9 @@ public class SellController implements Serializable {
     private EntityManager em;
     @Resource
     private UserTransaction ut;
-
-    private Part part;
     @Inject
     private Item item;
+    private Part part;
 
     public String persist(SigninController controller) {
         try {
@@ -72,21 +71,17 @@ public class SellController implements Serializable {
     public byte[] scale(byte[] foto) throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(foto);
         BufferedImage originalBufferedImage = ImageIO.read(byteArrayInputStream);
-
         double originalWidth = (double) originalBufferedImage.getWidth();
         double originalHeight = (double) originalBufferedImage.getHeight();
         double relevantLength = originalWidth > originalHeight ? originalWidth : originalHeight;
-
         double transformationScale = MAX_IMAGE_LENGTH / relevantLength;
         int width = (int) Math.round(transformationScale * originalWidth);
         int height = (int) Math.round(transformationScale * originalHeight);
-
         BufferedImage resizedBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = resizedBufferedImage.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         AffineTransform affineTransform = AffineTransform.getScaleInstance(transformationScale, transformationScale);
         g2d.drawRenderedImage(originalBufferedImage, affineTransform);
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(resizedBufferedImage, "PNG", baos);
         return baos.toByteArray();

@@ -6,7 +6,7 @@
 <ui:define name="content">
 <h:form>
 <h:dataTable
-	value="#{searchController.items}"
+	value="#{searchController.findAll()}"
 	var="item">
 	<h:column>
 		<h:panelGrid columns="2">
