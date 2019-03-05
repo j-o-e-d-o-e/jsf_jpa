@@ -14,12 +14,19 @@
 			<h:outputLabel value="#{msg['email']}:"/>
 			<h:inputText
 				id="email" 
-				value="#{registerController.customer.email}"/>
+				value="#{registerController.customer.email}"
+				required="true"
+				label="#{msg['email']}">
+				<f:validateRegex pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" for="email"/>
+			</h:inputText>
 			<h:message for="email"/>	
 			<h:outputLabel value="#{msg['password']}:"/>
 			<h:inputSecret
 				id="password" 
-				value="#{registerController.customer.password}"/>
+				value="#{registerController.customer.password}">
+				<f:validateRequired for ="email"/>
+				<f:validateLength minimum="6" for="password"/>
+			</h:inputSecret>
 			<h:message for="password"/>	
 			<h:commandButton
 				id="register" 

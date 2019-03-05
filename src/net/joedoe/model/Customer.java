@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(schema = "ONLINESHOP", name = "CUSTOMER")
@@ -23,9 +25,10 @@ public class Customer implements Serializable {
     @SequenceGenerator(name = "CUSTOMER_ID_GENERATOR", sequenceName = "SEQ_CUSTOMER", schema = "ONLINESHOP", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_ID_GENERATOR")
     private Long id;
-
+    @NotNull
     private String email;
-
+    @NotNull
+    @Min(value=6)
     private String password;
 
     // bi-directional many-to-one association to Item
