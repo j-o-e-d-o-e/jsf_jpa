@@ -12,17 +12,24 @@
 		<h:panelGrid columns="2">
 			<h:outputText value="#{msg['item.title']}:"/>
 			<h:outputText value="#{item.title}"/>
+			
 			<h:outputText value="#{msg['item.id']}:"/>
 			<h:outputText value="#{item.id}"/>
+			
 			<h:outputText value="#{msg['item.description']}:"/>
 			<h:outputText value="#{item.description}"/>
+			
 			<h:outputText value="#{msg['item.price']}:"/>
-			<h:outputText value="#{item.price}"/>
+			<h:outputText value="#{item.price}">
+				<f:convertNumber minIntegerDigits="1" minFractionDigits="2"/>
+			</h:outputText>
+			
 			<h:outputText 
 				rendered="#{not empty item.sold}"
 				value="#{msg['item.sold']}"/>
 			<h:outputText
 				value="#{item.sold}"/>
+			
 			<h:commandButton 
 				rendered="#{not empty signinController.customer.email}"
 				disabled="#{not empty item.sold}"
