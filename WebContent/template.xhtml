@@ -7,7 +7,6 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
 <f:loadBundle basename="messages" var="msg"/>
-
 <h:head>
     <title>
     	<h:outputText value="#{msg['title']}" />
@@ -24,13 +23,9 @@
     	<ui:include src="header.xhtml"/>
     </ui:insert>
   <ui:insert name="content">
-
   </ui:insert>
-
   <ui:insert name="footer">
     	<ui:include src="footer.xhtml"/>
   </ui:insert>
-
 </h:body>
-
 </html>
